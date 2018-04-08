@@ -1,0 +1,12 @@
+.d{
+    background: url("./img.png") no-repeat scroll;
+    background-size:contain;
+    width:200px;
+    height:200px;
+}
+.c{
+    background:url("./sub_img/img.png");
+}
+.a{
+    background:url("sub_img/sub1/img.png");
+}
