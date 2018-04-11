@@ -22,14 +22,30 @@ gulp.task('html',function(){
         minfyCss: true,//压缩CSS
     };
     return gulp.src('./index.html')
-        .pipe(htmlmin(options))
+        // .pipe(htmlmin(options))
         .pipe(gulp.dest('./output/'))
 });
 
-gulp.task('css',['html'],function(){
+gulp.task('html2',function(){
+    var options = {
+        removeComments: true, //清除HTML注释
+        collapseWhitespace: true, //压缩HTML
+        collapseBooleanAttributes: false,//省略布尔属性的值 <input checked="true"/> ==> <input />
+        removeEmptyAttributes: false,//删除所有空格作属性值 <input id="" /> ==> <input />
+        removeScriptTypeAttributes: true,//删除<script>的type="text/javascript"
+        removeStyleLinkTypeAttributes: true,//删除<style>和<link>的type="text/css"
+        minfyJS: true,//压缩JS
+        minfyCss: true,//压缩CSS
+    };
+    return gulp.src('./home.html')
+        // .pipe(htmlmin(options))
+        .pipe(gulp.dest('./output/'))
+});
+
+gulp.task('css',['html2'],function(){
     return gulp.src("./style.css")
-        .pipe(cssmin())
-        .pipe(md5(10,'./output/*.html',{
+        // .pipe(cssmin())
+        .pipe(md5(10,['./output/index.html','./output/home.html'],{
             mappingFile: 'manifest.json'
         }))
         .pipe(gulp.dest("./output/"));
@@ -54,5 +70,5 @@ gulp.task('img' , ['js'],function() {
 });
 
 gulp.task('default',['clean'],function(){
-    gulp.start('html','css','js','img');
+    gulp.start('html','html2','css','js','img');
 })
